@@ -5,26 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MSc Thesis — Debashis Baidya | TU Dresden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:         #fafaf8;
-      --bg2:        #f4f3ef;
-      --surface:    #ffffff;
-      --border:     #e0ddd6;
-      --border-dark:#c8c4bb;
-      --text:       #1c1a17;
-      --text-mid:   #4a4640;
-      --text-muted: #857f77;
-      --accent:     #1a3a5c;
-      --accent-light:#e8eef5;
-      --teal:       #0d6e6e;
-      --teal-light: #e6f4f4;
-      --amber:      #92400e;
-      --amber-light:#fef3c7;
-      --rose:       #7c2d42;
-      --rose-light: #fce7ef;
-      --rule:       1px solid var(--border);
+      --bg:          #dce8f2;
+      --bg2:         #cfdcea;
+      --bg3:         #c4d4e4;
+      --surface:     #eaf2f9;
+      --surface2:    #d8e6f280;
+      --border:      #b4c8da;
+      --border-mid:  #96afc4;
+      --border-hi:   #7896ae;
+
+      --text:        #1a2a38;
+      --text-mid:    #2e4558;
+      --text-muted:  #527090;
+      --text-faint:  #8aaabf;
+
+      --gold:        #1e5080;
+      --gold-dim:    #3a6e96;
+      --gold-glow:   rgba(30,80,128,0.07);
+      --gold-light:  rgba(30,80,128,0.12);
+
+      --teal:        #1a7070;
+      --teal-dim:    #2a9090;
+      --teal-glow:   rgba(26,112,112,0.07);
+
+      --rose:        #7a3050;
+      --rose-dim:    #a04870;
+      --rose-glow:   rgba(122,48,80,0.07);
+
+      --sage:        #2a6040;
+      --sage-dim:    #3a8058;
+      --sage-glow:   rgba(42,96,64,0.07);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,10 +46,35 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Source Sans 3', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 400;
-      line-height: 1.65;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Subtle noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient radial glow at top */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(30,80,128,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* ─── Nav ─── */
@@ -44,147 +82,180 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(250, 250, 248, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: var(--rule);
+      background: rgba(220,232,242,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
     .nav-inner {
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 32px;
-      height: 56px;
+      padding: 0 40px;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .nav-wordmark {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
       color: var(--text-muted);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
-    .nav-wordmark strong { color: var(--accent); font-weight: 500; }
+    .nav-wordmark strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
     .nav-tag {
-      font-size: 0.75rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
       color: var(--text-muted);
-      border: var(--rule);
+      border: 1px solid var(--border);
       border-radius: 3px;
-      padding: 3px 9px;
-      background: var(--bg2);
+      padding: 4px 10px;
+      background: var(--surface);
+      letter-spacing: 0.05em;
     }
 
     /* ─── Wrapper ─── */
     .wrap {
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
     }
 
     /* ─── Hero ─── */
     .hero {
-      padding: 72px 0 60px;
-      border-bottom: var(--rule);
+      padding: 88px 0 72px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
     }
+    .hero-glow {
+      position: absolute;
+      bottom: -80px;
+      right: -60px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(26,112,112,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
     .eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
+      color: var(--gold);
+      margin-bottom: 24px;
       opacity: 0;
       animation: fadeUp 0.5s 0.05s ease forwards;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+
     h1 {
-      font-family: 'Lora', serif;
-      font-size: clamp(1.65rem, 3.5vw, 2.5rem);
-      font-weight: 600;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.22;
+      letter-spacing: -0.015em;
       color: var(--text);
-      max-width: 720px;
-      margin-bottom: 32px;
+      max-width: 680px;
+      margin-bottom: 40px;
       opacity: 0;
       animation: fadeUp 0.55s 0.12s ease forwards;
     }
     h1 em {
       font-style: italic;
-      color: var(--accent);
+      color: var(--gold);
     }
 
     .meta-strip {
       display: flex;
       flex-wrap: wrap;
       gap: 0;
-      border: var(--rule);
+      border: 1px solid var(--border);
       border-radius: 6px;
       overflow: hidden;
-      max-width: 620px;
+      max-width: 580px;
+      background: var(--surface);
       opacity: 0;
       animation: fadeUp 0.55s 0.22s ease forwards;
     }
     .meta-item {
-      padding: 10px 18px;
-      border-right: var(--rule);
+      padding: 14px 22px;
+      border-right: 1px solid var(--border);
       flex: 1;
       min-width: 140px;
     }
     .meta-item:last-child { border-right: none; }
     .meta-key {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.58rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--text-muted);
       display: block;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
     .meta-val {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--text);
     }
 
     /* ─── Section common ─── */
     section {
-      padding: 56px 0;
-      border-bottom: var(--rule);
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
     }
     .section-header {
       display: flex;
-      align-items: baseline;
-      gap: 14px;
-      margin-bottom: 28px;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
     }
     .section-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
     }
     h2 {
-      font-family: 'Lora', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
       color: var(--text);
-      letter-spacing: -0.01em;
+      letter-spacing: 0.01em;
+      flex-shrink: 0;
     }
     .rule-line {
       flex: 1;
       height: 1px;
-      background: var(--border);
+      background: linear-gradient(to right, var(--border), transparent);
     }
 
     /* ─── Abstract ─── */
     .abstract-text {
-      font-size: 0.95rem;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.12rem;
+      font-style: italic;
       color: var(--text-mid);
       max-width: 700px;
-      line-height: 1.8;
-      border-left: 3px solid var(--accent);
-      padding-left: 20px;
-      font-family: 'Lora', serif;
-      font-style: italic;
+      line-height: 1.85;
+      border-left: 2px solid var(--gold-dim);
+      padding-left: 24px;
     }
 
     /* ─── Info grid ─── */
@@ -193,7 +264,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: var(--border);
-      border: var(--rule);
+      border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
     }
@@ -201,116 +272,166 @@
 
     .info-cell {
       background: var(--surface);
-      padding: 22px 24px;
+      padding: 26px 28px;
+      transition: background 0.2s;
+    }
+    .info-cell:hover {
+      background: var(--bg3);
     }
     .info-cell h4 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 12px;
     }
     .info-cell p, .info-cell li {
       font-size: 0.875rem;
       color: var(--text-mid);
-      line-height: 1.7;
+      line-height: 1.75;
     }
     .info-cell ul { padding-left: 16px; }
-    .info-cell li { margin-bottom: 3px; }
+    .info-cell li {
+      margin-bottom: 4px;
+      list-style: none;
+      position: relative;
+      padding-left: 14px;
+    }
+    .info-cell li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--text-faint);
+    }
 
     /* ─── Documents ─── */
     .docs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 14px;
     }
-    @media (max-width: 500px) { .docs-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) { .docs-grid { grid-template-columns: 1fr; } }
 
     .doc-card {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 26px 24px;
+      gap: 14px;
+      padding: 28px 26px;
       background: var(--surface);
-      border: var(--rule);
+      border: 1px solid var(--border);
       border-radius: 8px;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
       position: relative;
+      overflow: hidden;
     }
-    .doc-card:hover {
-      border-color: var(--border-dark);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      transform: translateY(-2px);
+
+    /* card shimmer overlay */
+    .doc-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 8px;
     }
+    .doc-card.blue::before  { background: var(--gold-glow); }
+    .doc-card.teal::before  { background: var(--teal-glow); }
+    .doc-card.amber::before { background: var(--sage-glow); }
+    .doc-card.rose::before  { background: var(--rose-glow); }
+
+    .doc-card:hover { transform: translateY(-3px); }
+    .doc-card:hover::before { opacity: 1; }
+    .doc-card.blue:hover  { border-color: var(--gold-dim);  box-shadow: 0 8px 32px rgba(201,169,110,0.08); }
+    .doc-card.teal:hover  { border-color: var(--teal-dim);  box-shadow: 0 8px 32px rgba(91,168,168,0.08); }
+    .doc-card.amber:hover { border-color: var(--sage-dim);  box-shadow: 0 8px 32px rgba(122,158,126,0.08); }
+    .doc-card.rose:hover  { border-color: var(--rose-dim);  box-shadow: 0 8px 32px rgba(196,122,138,0.08); }
+
+    /* top accent line */
+    .doc-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0.6;
+      transition: opacity 0.25s;
+    }
+    .doc-card.blue::after  { background: linear-gradient(to right, var(--gold), transparent); }
+    .doc-card.teal::after  { background: linear-gradient(to right, var(--teal), transparent); }
+    .doc-card.amber::after { background: linear-gradient(to right, var(--sage), transparent); }
+    .doc-card.rose::after  { background: linear-gradient(to right, var(--rose), transparent); }
+    .doc-card:hover::after { opacity: 1; }
 
     .doc-header {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
     }
     .doc-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 6px;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       flex-shrink: 0;
+      border: 1px solid var(--border);
     }
-    .badge-blue   { background: var(--accent-light); }
-    .badge-teal   { background: var(--teal-light); }
-    .badge-amber  { background: var(--amber-light); }
-    .badge-rose   { background: var(--rose-light); }
+    .badge-blue   { background: rgba(201,169,110,0.08); }
+    .badge-teal   { background: rgba(91,168,168,0.08); }
+    .badge-amber  { background: rgba(122,158,126,0.08); }
+    .badge-rose   { background: rgba(196,122,138,0.08); }
 
     .doc-meta { flex: 1; }
     .doc-type {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.58rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
-    .type-blue  { color: var(--accent); }
+    .type-blue  { color: var(--gold); }
     .type-teal  { color: var(--teal); }
-    .type-amber { color: var(--amber); }
+    .type-amber { color: var(--sage); }
     .type-rose  { color: var(--rose); }
 
     .doc-title {
-      font-family: 'Lora', serif;
-      font-size: 1rem;
-      font-weight: 600;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
       color: var(--text);
       line-height: 1.3;
     }
     .doc-desc {
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
     }
     .doc-link {
       font-size: 0.78rem;
-      font-weight: 600;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       margin-top: 2px;
+      position: relative;
+      z-index: 1;
       transition: gap 0.2s;
+      font-family: 'Fira Code', monospace;
+      letter-spacing: 0.02em;
     }
-    .doc-card:hover .doc-link { gap: 9px; }
-    .link-blue  { color: var(--accent); }
+    .doc-card:hover .doc-link { gap: 10px; }
+    .link-blue  { color: var(--gold); }
     .link-teal  { color: var(--teal); }
-    .link-amber { color: var(--amber); }
+    .link-amber { color: var(--sage); }
     .link-rose  { color: var(--rose); }
-
-    /* Left accent bar per colour */
-    .doc-card.blue  { border-left: 3px solid var(--accent); }
-    .doc-card.teal  { border-left: 3px solid var(--teal); }
-    .doc-card.amber { border-left: 3px solid var(--amber); }
-    .doc-card.rose  { border-left: 3px solid var(--rose); }
 
     /* ─── Supervisors ─── */
     .sup-table {
@@ -318,52 +439,93 @@
       border-collapse: collapse;
       font-size: 0.875rem;
     }
+    .sup-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
     .sup-table th {
       text-align: left;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.58rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: var(--text-muted);
-      padding: 0 0 10px;
-      border-bottom: var(--rule);
+      padding: 0 0 14px;
       font-weight: 400;
     }
     .sup-table td {
-      padding: 14px 0;
-      border-bottom: var(--rule);
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
       vertical-align: top;
     }
     .sup-table tr:last-child td { border-bottom: none; }
-    .sup-table td:first-child { width: 30%; color: var(--text-muted); font-size: 0.83rem; }
-    .sup-table td:nth-child(2) { font-weight: 500; color: var(--text); padding-right: 20px; }
-    .sup-table td:last-child { color: var(--text-muted); font-size: 0.83rem; }
+    .sup-table tr {
+      transition: background 0.15s;
+    }
+    .sup-table tbody tr:hover td {
+      background: var(--bg3);
+    }
+    .sup-table td:first-child {
+      width: 24%;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-family: 'Fira Code', monospace;
+      letter-spacing: 0.02em;
+      padding-right: 16px;
+    }
+    .sup-table td:nth-child(2) {
+      font-weight: 500;
+      color: var(--text);
+      padding-right: 28px;
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+    }
+    .sup-table td:last-child {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    .sup-row-highlight td:nth-child(2) {
+      color: var(--gold);
+    }
 
     /* ─── Footer ─── */
     footer {
-      padding: 32px 0 48px;
+      padding: 40px 0 56px;
       text-align: center;
     }
+    .footer-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto 24px;
+    }
     footer p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      letter-spacing: 0.06em;
     }
 
     /* ─── Animations ─── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     .reveal {
       opacity: 0;
-      animation: fadeUp 0.5s ease forwards;
+      animation: fadeUp 0.55s ease forwards;
     }
     .d1 { animation-delay: 0.05s; }
-    .d2 { animation-delay: 0.12s; }
-    .d3 { animation-delay: 0.19s; }
-    .d4 { animation-delay: 0.26s; }
+    .d2 { animation-delay: 0.14s; }
+    .d3 { animation-delay: 0.23s; }
+    .d4 { animation-delay: 0.32s; }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      h1 { font-size: 1.8rem; }
+      .meta-item { min-width: 120px; padding: 12px 14px; }
+      section { padding: 48px 0; }
+    }
   </style>
 </head>
 <body>
@@ -371,7 +533,7 @@
   <!-- Nav -->
   <nav>
     <div class="nav-inner">
-      <span class="nav-wordmark">MSc Thesis · <strong>Debashis Baidya</strong></span>
+      <span class="nav-wordmark">thesis/ <strong>debashis-baidya</strong></span>
       <span class="nav-tag">TU Dresden · 2025</span>
     </div>
   </nav>
@@ -379,6 +541,7 @@
   <!-- Hero -->
   <header class="hero">
     <div class="wrap">
+      <div class="hero-glow"></div>
       <p class="eyebrow">Master of Science Thesis</p>
       <h1>Explainable Energy Scheduling in <em>Residential Home Energy</em> Management Systems</h1>
       <div class="meta-strip">
@@ -401,12 +564,12 @@
   <!-- Abstract -->
   <section>
     <div class="wrap">
-      <div class="section-header">
+      <div class="section-header reveal d1">
         <span class="section-num">§ 01</span>
         <h2>Abstract</h2>
         <div class="rule-line"></div>
       </div>
-      <p class="abstract-text reveal d1">
+      <p class="abstract-text reveal d2">
         This thesis investigates the explainability of Deep Reinforcement Learning (DRL) 
         decisions in residential Home Energy Management Systems (HEMS), using Mixed-Integer 
         Linear Programming (MILP) as an interpretable reference model. Through post-hoc XAI 
@@ -420,12 +583,12 @@
   <!-- Research Overview -->
   <section>
     <div class="wrap">
-      <div class="section-header">
+      <div class="section-header reveal d1">
         <span class="section-num">§ 02</span>
         <h2>Research Overview</h2>
         <div class="rule-line"></div>
       </div>
-      <div class="info-grid reveal d1">
+      <div class="info-grid reveal d2">
         <div class="info-cell">
           <h4>Motivation</h4>
           <p>DRL-based HEMS systems offer strong performance but remain opaque. This lack of interpretability barriers adoption in safety-critical, customer-facing energy systems where trust matters.</p>
@@ -457,7 +620,7 @@
   <!-- Documents -->
   <section>
     <div class="wrap">
-      <div class="section-header">
+      <div class="section-header reveal d1">
         <span class="section-num">§ 03</span>
         <h2>Documents &amp; Resources</h2>
         <div class="rule-line"></div>
@@ -473,7 +636,7 @@
             </div>
           </div>
           <p class="doc-desc">Full research proposal covering objectives, research questions, methodology, and the expected scope of the thesis.</p>
-          <span class="doc-link link-blue">Open document →</span>
+          <span class="doc-link link-blue">open document →</span>
         </a>
 
         <a class="doc-card teal reveal d2" href="https://docs.google.com/document/d/1IXsgxx0aI5fg3Clekd74XOH__PWaJxVWnsQqB0D5ffw/edit?usp=drive_link" target="_blank" rel="noopener">
@@ -485,7 +648,7 @@
             </div>
           </div>
           <p class="doc-desc">Ongoing notes, literature review summaries, and experimental findings compiled throughout the thesis work.</p>
-          <span class="doc-link link-teal">Open document →</span>
+          <span class="doc-link link-teal">open document →</span>
         </a>
 
         <a class="doc-card amber reveal d3" href="https://docs.google.com/document/d/1kKq8KUHQb4S8-tdUsrAUIFdb9sGY_4zYLVgLw4Bh0NI/edit?usp=drive_link" target="_blank" rel="noopener">
@@ -497,7 +660,7 @@
             </div>
           </div>
           <p class="doc-desc">The complete written thesis report including methodology, experiments, results, and conclusions on XAI for HEMS.</p>
-          <span class="doc-link link-amber">Open report →</span>
+          <span class="doc-link link-amber">open report →</span>
         </a>
 
         <a class="doc-card rose reveal d4" href="https://docs.google.com/presentation/d/1zduxxtpiUGN7xAxOOu717HtijRlAXeNR72y7GzRKO3k/edit?usp=sharing" target="_blank" rel="noopener">
@@ -509,7 +672,7 @@
             </div>
           </div>
           <p class="doc-desc">Slide deck covering background, methodology, key explainability findings, and design recommendations.</p>
-          <span class="doc-link link-rose">Open slides →</span>
+          <span class="doc-link link-rose">open slides →</span>
         </a>
 
       </div>
@@ -519,12 +682,12 @@
   <!-- Supervision -->
   <section>
     <div class="wrap">
-      <div class="section-header">
+      <div class="section-header reveal d1">
         <span class="section-num">§ 04</span>
         <h2>Supervision &amp; Affiliation</h2>
         <div class="rule-line"></div>
       </div>
-      <table class="sup-table reveal d1">
+      <table class="sup-table reveal d2">
         <thead>
           <tr>
             <th>Role</th>
@@ -533,23 +696,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Author</td>
+          <tr class="sup-row-highlight">
+            <td>author</td>
             <td>Debashis Baidya</td>
             <td>Computational Modeling &amp; Simulation, TU Dresden</td>
           </tr>
           <tr>
-            <td>Academic Supervisor</td>
+            <td>academic sup.</td>
             <td>M.Sc. Razan Habeeb</td>
             <td>TU Dresden</td>
           </tr>
           <tr>
-            <td>Industry Supervisor</td>
+            <td>industry sup.</td>
             <td>Dr.-Ing. Lars Högner</td>
             <td>Kiwigrid GmbH</td>
           </tr>
           <tr>
-            <td>Host Chair</td>
+            <td>host chair</td>
             <td colspan="2">Deutsche Telekom Chair of Communication Networks, TU Dresden</td>
           </tr>
         </tbody>
@@ -560,6 +723,7 @@
   <!-- Footer -->
   <footer>
     <div class="wrap">
+      <div class="footer-rule"></div>
       <p>© 2025 Debashis Baidya · MSc Thesis · TU Dresden · Matrikel-Nr. 4908178</p>
     </div>
   </footer>
