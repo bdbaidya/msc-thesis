@@ -3,484 +3,564 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MSc Thesis — Debashis Baidya</title>
+  <title>MSc Thesis — Debashis Baidya | TU Dresden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0e17;
-      --surface: #111827;
-      --surface2: #1a2236;
-      --accent: #00d4ff;
-      --accent2: #7c3aed;
-      --accent3: #10b981;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --border: rgba(0, 212, 255, 0.15);
-      --glow: rgba(0, 212, 255, 0.08);
+      --bg:         #fafaf8;
+      --bg2:        #f4f3ef;
+      --surface:    #ffffff;
+      --border:     #e0ddd6;
+      --border-dark:#c8c4bb;
+      --text:       #1c1a17;
+      --text-mid:   #4a4640;
+      --text-muted: #857f77;
+      --accent:     #1a3a5c;
+      --accent-light:#e8eef5;
+      --teal:       #0d6e6e;
+      --teal-light: #e6f4f4;
+      --amber:      #92400e;
+      --amber-light:#fef3c7;
+      --rose:       #7c2d42;
+      --rose-light: #fce7ef;
+      --rule:       1px solid var(--border);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      overflow-x: hidden;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Grid background ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── Ambient blobs ── */
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .blob-1 { width: 600px; height: 600px; background: var(--accent2); top: -200px; right: -100px; }
-    .blob-2 { width: 500px; height: 500px; background: var(--accent); bottom: -100px; left: -150px; }
-
-    /* ── Layout ── */
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ── Nav ── */
+    /* ─── Nav ─── */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 14, 23, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 0;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: var(--rule);
     }
-    nav .wrapper {
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .nav-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .nav-wordmark {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
     }
-    .nav-badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 20px;
+    .nav-wordmark strong { color: var(--accent); font-weight: 500; }
+    .nav-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: var(--rule);
+      border-radius: 3px;
+      padding: 3px 9px;
+      background: var(--bg2);
     }
 
-    /* ── Hero ── */
-    header {
-      padding: 90px 0 70px;
-      position: relative;
-      overflow: hidden;
+    /* ─── Wrapper ─── */
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
     }
-    .thesis-label {
-      font-family: 'Space Mono', monospace;
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 72px 0 60px;
+      border-bottom: var(--rule);
+    }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 22px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.05s ease forwards;
     }
-    .thesis-label::before {
-      content: '';
-      display: inline-block;
-      width: 28px;
-      height: 1px;
-      background: var(--accent);
-    }
-
     h1 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 780px;
-      margin-bottom: 28px;
-      letter-spacing: -0.02em;
+      font-family: 'Lora', serif;
+      font-size: clamp(1.65rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      max-width: 720px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.55s 0.12s ease forwards;
     }
     h1 em {
-      font-style: normal;
+      font-style: italic;
       color: var(--accent);
     }
 
-    .meta-row {
+    .meta-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 0;
+      border: var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+      max-width: 620px;
+      opacity: 0;
+      animation: fadeUp 0.55s 0.22s ease forwards;
     }
-    .meta-pill {
-      font-size: 0.78rem;
-      padding: 5px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: var(--glow);
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
+    .meta-item {
+      padding: 10px 18px;
+      border-right: var(--rule);
+      flex: 1;
+      min-width: 140px;
     }
-    .meta-pill strong { color: var(--text); font-weight: 500; }
-
-    /* ── Section titles ── */
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
+    .meta-item:last-child { border-right: none; }
+    .meta-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 2px;
     }
-    .section-label::after {
-      content: '';
+    .meta-val {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ─── Section common ─── */
+    section {
+      padding: 56px 0;
+      border-bottom: var(--rule);
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+    h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .rule-line {
       flex: 1;
       height: 1px;
       background: var(--border);
     }
 
-    /* ── About section ── */
-    .about {
-      padding: 50px 0;
-      border-top: 1px solid var(--border);
+    /* ─── Abstract ─── */
+    .abstract-text {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      max-width: 700px;
+      line-height: 1.8;
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+      font-family: 'Lora', serif;
+      font-style: italic;
     }
-    .about-grid {
+
+    /* ─── Info grid ─── */
+    .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; } }
-
-    .about-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px;
-      position: relative;
+      gap: 1px;
+      background: var(--border);
+      border: var(--rule);
+      border-radius: 8px;
       overflow: hidden;
     }
-    .about-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    @media (max-width: 560px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-cell {
+      background: var(--surface);
+      padding: 22px 24px;
     }
-    .about-card h3 {
-      font-size: 0.78rem;
-      font-family: 'Space Mono', monospace;
+    .info-cell h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--accent);
+      color: var(--text-muted);
       margin-bottom: 10px;
     }
-    .about-card p, .about-card li {
-      font-size: 0.88rem;
-      line-height: 1.65;
-      color: #94a3b8;
+    .info-cell p, .info-cell li {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.7;
     }
-    .about-card ul {
-      padding-left: 16px;
-    }
-    .about-card li { margin-bottom: 4px; }
+    .info-cell ul { padding-left: 16px; }
+    .info-cell li { margin-bottom: 3px; }
 
-    /* ── Documents section ── */
-    .documents {
-      padding: 50px 0;
-      border-top: 1px solid var(--border);
-    }
+    /* ─── Documents ─── */
     .docs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+      gap: 16px;
     }
+    @media (max-width: 500px) { .docs-grid { grid-template-columns: 1fr; } }
 
     .doc-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px 24px;
-      text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      padding: 26px 24px;
+      background: var(--surface);
+      border: var(--rule);
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
       position: relative;
-      overflow: hidden;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-      cursor: pointer;
     }
     .doc-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0, 212, 255, 0.4);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0,212,255,0.1);
+      border-color: var(--border-dark);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
     }
 
-    .doc-card .doc-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
+    .doc-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .doc-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1.05rem;
+      flex-shrink: 0;
     }
-    .icon-blue  { background: rgba(0,212,255,0.12); }
-    .icon-purple{ background: rgba(124,58,237,0.15); }
-    .icon-green { background: rgba(16,185,129,0.12); }
+    .badge-blue   { background: var(--accent-light); }
+    .badge-teal   { background: var(--teal-light); }
+    .badge-amber  { background: var(--amber-light); }
+    .badge-rose   { background: var(--rose-light); }
 
-    .doc-card .doc-type {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.15em;
+    .doc-meta { flex: 1; }
+    .doc-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 3px;
     }
-    .doc-card h3 {
+    .type-blue  { color: var(--accent); }
+    .type-teal  { color: var(--teal); }
+    .type-amber { color: var(--amber); }
+    .type-rose  { color: var(--rose); }
+
+    .doc-title {
+      font-family: 'Lora', serif;
       font-size: 1rem;
       font-weight: 600;
       color: var(--text);
-      line-height: 1.35;
+      line-height: 1.3;
     }
-    .doc-card p {
+    .doc-desc {
       font-size: 0.83rem;
-      color: var(--muted);
-      line-height: 1.55;
-      flex: 1;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
-    .doc-card .doc-cta {
+    .doc-link {
+      font-size: 0.78rem;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--accent);
-      margin-top: 4px;
-      transition: gap 0.2s ease;
+      gap: 5px;
+      margin-top: 2px;
+      transition: gap 0.2s;
     }
-    .doc-card:hover .doc-cta { gap: 10px; }
+    .doc-card:hover .doc-link { gap: 9px; }
+    .link-blue  { color: var(--accent); }
+    .link-teal  { color: var(--teal); }
+    .link-amber { color: var(--amber); }
+    .link-rose  { color: var(--rose); }
 
-    /* Colored top bar per card */
-    .doc-card.blue::before  { content:''; position:absolute; top:0;left:0;right:0;height:2px; background: linear-gradient(90deg, #00d4ff, #0ea5e9); }
-    .doc-card.purple::before{ content:''; position:absolute; top:0;left:0;right:0;height:2px; background: linear-gradient(90deg, #7c3aed, #a855f7); }
-    .doc-card.green::before { content:''; position:absolute; top:0;left:0;right:0;height:2px; background: linear-gradient(90deg, #10b981, #34d399); }
+    /* Left accent bar per colour */
+    .doc-card.blue  { border-left: 3px solid var(--accent); }
+    .doc-card.teal  { border-left: 3px solid var(--teal); }
+    .doc-card.amber { border-left: 3px solid var(--amber); }
+    .doc-card.rose  { border-left: 3px solid var(--rose); }
 
-    /* ── Supervisors ── */
-    .supervisors {
-      padding: 50px 0;
-      border-top: 1px solid var(--border);
+    /* ─── Supervisors ─── */
+    .sup-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
     }
-    .sup-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-    .sup-chip {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      flex: 1;
-      min-width: 200px;
-    }
-    .sup-chip .role {
-      font-family: 'Space Mono', monospace;
+    .sup-table th {
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 5px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 0 0 10px;
+      border-bottom: var(--rule);
+      font-weight: 400;
     }
-    .sup-chip .name { font-size: 0.92rem; font-weight: 500; color: var(--text); }
-    .sup-chip .org  { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .sup-table td {
+      padding: 14px 0;
+      border-bottom: var(--rule);
+      vertical-align: top;
+    }
+    .sup-table tr:last-child td { border-bottom: none; }
+    .sup-table td:first-child { width: 30%; color: var(--text-muted); font-size: 0.83rem; }
+    .sup-table td:nth-child(2) { font-weight: 500; color: var(--text); padding-right: 20px; }
+    .sup-table td:last-child { color: var(--text-muted); font-size: 0.83rem; }
 
-    /* ── Footer ── */
+    /* ─── Footer ─── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 0 50px;
+      padding: 32px 0 48px;
       text-align: center;
     }
     footer p {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
     }
-    footer span { color: var(--accent); }
 
-    /* ── Animations ── */
+    /* ─── Animations ─── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-up {
-      animation: fadeUp 0.65s ease both;
+    .reveal {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
     }
-    .fade-up:nth-child(2) { animation-delay: 0.1s; }
-    .fade-up:nth-child(3) { animation-delay: 0.2s; }
-    .fade-up:nth-child(4) { animation-delay: 0.3s; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.12s; }
+    .d3 { animation-delay: 0.19s; }
+    .d4 { animation-delay: 0.26s; }
   </style>
 </head>
 <body>
 
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
   <!-- Nav -->
   <nav>
-    <div class="wrapper">
-      <span class="nav-logo">MSc Thesis</span>
-      <span class="nav-badge">TU Dresden · 2025</span>
+    <div class="nav-inner">
+      <span class="nav-wordmark">MSc Thesis · <strong>Debashis Baidya</strong></span>
+      <span class="nav-tag">TU Dresden · 2025</span>
     </div>
   </nav>
 
   <!-- Hero -->
-  <header>
-    <div class="wrapper">
-      <div class="thesis-label fade-up">MSc Research</div>
-      <h1 class="fade-up">
-        Explainable Energy Scheduling in<br>
-        <em>Residential Home Energy</em><br>
-        Management Systems
-      </h1>
-      <div class="meta-row fade-up">
-        <span class="meta-pill"><strong>Author</strong> Debashis Baidya</span>
-        <span class="meta-pill"><strong>Program</strong> Computational Modeling &amp; Simulation</span>
-        <span class="meta-pill"><strong>ID</strong> 4908178</span>
-        <span class="meta-pill"><strong>Institute</strong> TU Dresden</span>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Master of Science Thesis</p>
+      <h1>Explainable Energy Scheduling in <em>Residential Home Energy</em> Management Systems</h1>
+      <div class="meta-strip">
+        <div class="meta-item">
+          <span class="meta-key">Author</span>
+          <span class="meta-val">Debashis Baidya</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Programme</span>
+          <span class="meta-val">Comp. Modeling &amp; Simulation</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Matrikel-Nr.</span>
+          <span class="meta-val">4908178</span>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- About -->
-  <section class="about">
-    <div class="wrapper">
-      <div class="section-label">Overview</div>
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Background</h3>
-          <p>This thesis addresses the lack of interpretability in Deep Reinforcement Learning (DRL) for Home Energy Management Systems (HEMS) by positioning Explainable AI (XAI) as the central research focus, using MILP as an interpretable reference model.</p>
+  <!-- Abstract -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">§ 01</span>
+        <h2>Abstract</h2>
+        <div class="rule-line"></div>
+      </div>
+      <p class="abstract-text reveal d1">
+        This thesis investigates the explainability of Deep Reinforcement Learning (DRL) 
+        decisions in residential Home Energy Management Systems (HEMS), using Mixed-Integer 
+        Linear Programming (MILP) as an interpretable reference model. Through post-hoc XAI 
+        methods including SHAP and Integrated Gradients, it evaluates explanation fidelity, 
+        stability, and user-relevant transparency across scenarios of increasing complexity — 
+        from single-EV baselines to multi-EV environments with stochastic uncertainty.
+      </p>
+    </div>
+  </section>
+
+  <!-- Research Overview -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">§ 02</span>
+        <h2>Research Overview</h2>
+        <div class="rule-line"></div>
+      </div>
+      <div class="info-grid reveal d1">
+        <div class="info-cell">
+          <h4>Motivation</h4>
+          <p>DRL-based HEMS systems offer strong performance but remain opaque. This lack of interpretability barriers adoption in safety-critical, customer-facing energy systems where trust matters.</p>
         </div>
-        <div class="about-card">
-          <h3>Key Objectives</h3>
+        <div class="info-cell">
+          <h4>Core Approach</h4>
+          <p>XAI as the central lens — MILP as a transparent benchmark, DRL as the learning agent. Post-hoc analysis bridges the gap between performance and interpretability.</p>
+        </div>
+        <div class="info-cell">
+          <h4>Scenarios</h4>
           <ul>
-            <li>Investigate XAI methods for DRL-based scheduling</li>
-            <li>Compare DRL transparency vs. MILP interpretability</li>
-            <li>Analyze explanation stability under complexity</li>
-            <li>Reveal policy strengths &amp; limitations under uncertainty</li>
+            <li>Baseline: single EV, PV &amp; battery</li>
+            <li>Extended: multiple EVs + stochastic availability</li>
+            <li>Controlled PV &amp; load forecast errors</li>
           </ul>
         </div>
-        <div class="about-card">
-          <h3>Methodology</h3>
-          <p>Simulation-based HEMS with PV, battery &amp; EVs. MILP as deterministic benchmark; DRL as trained agent. Post-hoc XAI (SHAP / Integrated Gradients) applied and cross-evaluated.</p>
-        </div>
-        <div class="about-card">
-          <h3>Conducted by</h3>
-          <p>Deutsche Telekom Chair of Communication Networks at TU Dresden in collaboration with <strong>Kiwigrid GmbH</strong>.</p>
+        <div class="info-cell">
+          <h4>Expected Outcomes</h4>
+          <ul>
+            <li>Systematic XAI analysis for DRL scheduling</li>
+            <li>MILP as reference for black-box explanation</li>
+            <li>Design recommendations for trustworthy HEMS</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Documents -->
-  <section class="documents">
-    <div class="wrapper">
-      <div class="section-label">Documents &amp; Resources</div>
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">§ 03</span>
+        <h2>Documents &amp; Resources</h2>
+        <div class="rule-line"></div>
+      </div>
       <div class="docs-grid">
 
-        <!-- Card 1 -->
-        <a class="doc-card blue" href="YOUR_GOOGLE_DRIVE_LINK_1" target="_blank" rel="noopener">
-          <div class="doc-icon icon-blue">📄</div>
-          <div class="doc-type">Document · Google Drive</div>
-          <h3>Thesis Proposal</h3>
-          <p>Full research proposal outlining objectives, methodology, and expected outcomes for the MSc thesis.</p>
-          <span class="doc-cta">Open document →</span>
+        <a class="doc-card blue reveal d1" href="https://drive.google.com/file/d/1hEV95k-1YLwkMPrX56m2MTeiA5EVCoJ6/view?usp=drive_link" target="_blank" rel="noopener">
+          <div class="doc-header">
+            <div class="doc-badge badge-blue">📄</div>
+            <div class="doc-meta">
+              <div class="doc-type type-blue">Document · Google Drive</div>
+              <div class="doc-title">Thesis Proposal</div>
+            </div>
+          </div>
+          <p class="doc-desc">Full research proposal covering objectives, research questions, methodology, and the expected scope of the thesis.</p>
+          <span class="doc-link link-blue">Open document →</span>
         </a>
 
-        <!-- Card 2 -->
-        <a class="doc-card purple" href="YOUR_GOOGLE_DRIVE_LINK_2" target="_blank" rel="noopener">
-          <div class="doc-icon icon-purple">📝</div>
-          <div class="doc-type">Document · Google Drive</div>
-          <h3>Research Notes</h3>
-          <p>Ongoing notes, literature review summaries, and experimental findings compiled throughout the thesis.</p>
-          <span class="doc-cta">Open document →</span>
+        <a class="doc-card teal reveal d2" href="https://docs.google.com/document/d/1IXsgxx0aI5fg3Clekd74XOH__PWaJxVWnsQqB0D5ffw/edit?usp=drive_link" target="_blank" rel="noopener">
+          <div class="doc-header">
+            <div class="doc-badge badge-teal">📝</div>
+            <div class="doc-meta">
+              <div class="doc-type type-teal">Document · Google Drive</div>
+              <div class="doc-title">Research Notes</div>
+            </div>
+          </div>
+          <p class="doc-desc">Ongoing notes, literature review summaries, and experimental findings compiled throughout the thesis work.</p>
+          <span class="doc-link link-teal">Open document →</span>
         </a>
 
-        <!-- Card 3 -->
-        <a class="doc-card green" href="YOUR_GOOGLE_SLIDES_LINK" target="_blank" rel="noopener">
-          <div class="doc-icon icon-green">🎞️</div>
-          <div class="doc-type">Presentation · Google Slides</div>
-          <h3>Thesis Presentation</h3>
-          <p>Slide deck covering research background, methodology, results, and key explainability insights.</p>
-          <span class="doc-cta">Open slides →</span>
+        <a class="doc-card amber reveal d3" href="https://docs.google.com/document/d/1kKq8KUHQb4S8-tdUsrAUIFdb9sGY_4zYLVgLw4Bh0NI/edit?usp=drive_link" target="_blank" rel="noopener">
+          <div class="doc-header">
+            <div class="doc-badge badge-amber">📖</div>
+            <div class="doc-meta">
+              <div class="doc-type type-amber">Report · Google Drive</div>
+              <div class="doc-title">Thesis Report</div>
+            </div>
+          </div>
+          <p class="doc-desc">The complete written thesis report including methodology, experiments, results, and conclusions on XAI for HEMS.</p>
+          <span class="doc-link link-amber">Open report →</span>
+        </a>
+
+        <a class="doc-card rose reveal d4" href="https://docs.google.com/presentation/d/1zduxxtpiUGN7xAxOOu717HtijRlAXeNR72y7GzRKO3k/edit?usp=sharing" target="_blank" rel="noopener">
+          <div class="doc-header">
+            <div class="doc-badge badge-rose">🎞️</div>
+            <div class="doc-meta">
+              <div class="doc-type type-rose">Presentation · Google Slides</div>
+              <div class="doc-title">Thesis Presentation</div>
+            </div>
+          </div>
+          <p class="doc-desc">Slide deck covering background, methodology, key explainability findings, and design recommendations.</p>
+          <span class="doc-link link-rose">Open slides →</span>
         </a>
 
       </div>
     </div>
   </section>
 
-  <!-- Supervisors -->
-  <section class="supervisors">
-    <div class="wrapper">
-      <div class="section-label">Supervision</div>
-      <div class="sup-row">
-        <div class="sup-chip">
-          <div class="role">Author</div>
-          <div class="name">Debashis Baidya</div>
-          <div class="org">Computational Modeling &amp; Simulation, TU Dresden</div>
-        </div>
-        <div class="sup-chip">
-          <div class="role">Academic Supervisor</div>
-          <div class="name">M.Sc. Razan Habeeb</div>
-          <div class="org">TU Dresden</div>
-        </div>
-        <div class="sup-chip">
-          <div class="role">Industry Supervisor</div>
-          <div class="name">Dr.-Ing. Lars Högner</div>
-          <div class="org">Kiwigrid GmbH</div>
-        </div>
+  <!-- Supervision -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-num">§ 04</span>
+        <h2>Supervision &amp; Affiliation</h2>
+        <div class="rule-line"></div>
       </div>
+      <table class="sup-table reveal d1">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Institution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Author</td>
+            <td>Debashis Baidya</td>
+            <td>Computational Modeling &amp; Simulation, TU Dresden</td>
+          </tr>
+          <tr>
+            <td>Academic Supervisor</td>
+            <td>M.Sc. Razan Habeeb</td>
+            <td>TU Dresden</td>
+          </tr>
+          <tr>
+            <td>Industry Supervisor</td>
+            <td>Dr.-Ing. Lars Högner</td>
+            <td>Kiwigrid GmbH</td>
+          </tr>
+          <tr>
+            <td>Host Chair</td>
+            <td colspan="2">Deutsche Telekom Chair of Communication Networks, TU Dresden</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="wrapper">
-      <p>© 2025 <span>Debashis Baidya</span> · MSc Thesis · TU Dresden · Immatriculation <span>4908178</span></p>
+    <div class="wrap">
+      <p>© 2025 Debashis Baidya · MSc Thesis · TU Dresden · Matrikel-Nr. 4908178</p>
     </div>
   </footer>
 
