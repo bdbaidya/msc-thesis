@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MSc Thesis — Debashis Baidya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface2: #1a2236;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(0, 212, 255, 0.15);
+      --glow: rgba(0, 212, 255, 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Ambient blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--accent2); top: -200px; right: -100px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--accent); bottom: -100px; left: -150px; }
+
+    /* ── Layout ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 14, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    nav .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Hero ── */
+    header {
+      padding: 90px 0 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .thesis-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .thesis-label::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 780px;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .meta-pill {
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--glow);
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+    .meta-pill strong { color: var(--text); font-weight: 500; }
+
+    /* ── Section titles ── */
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── About section ── */
+    .about {
+      padding: 50px 0;
+      border-top: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .about-card h3 {
+      font-size: 0.78rem;
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .about-card p, .about-card li {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #94a3b8;
+    }
+    .about-card ul {
+      padding-left: 16px;
+    }
+    .about-card li { margin-bottom: 4px; }
+
+    /* ── Documents section ── */
+    .documents {
+      padding: 50px 0;
+      border-top: 1px solid var(--border);
+    }
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .doc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+    .doc-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 212, 255, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0,212,255,0.1);
+    }
+
+    .doc-card .doc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .icon-blue  { background: rgba(0,212,255,0.12); }
+    .icon-purple{ background: rgba(124,58,237,0.15); }
+    .icon-green { background: rgba(16,185,129,0.12); }
+
+    .doc-card .doc-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .doc-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .doc-card p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+    .doc-card .doc-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 4px;
+      transition: gap 0.2s ease;
+    }
+    .doc-card:hover .doc-cta { gap: 10px; }
+
+    /* Colored top bar per card */
+    .doc-card.blue::before  { content:''; position:absolute; top:0;left:0;right:0;height:2px; background: linear-gradient(90deg, #00d4ff, #0ea5e9); }
+    .doc-card.purple::before{ content:''; position:absolute; top:0;left:0;right:0;height:2px; background: linear-gradient(90deg, #7c3aed, #a855f7); }
+    .doc-card.green::before { content:''; position:absolute; top:0;left:0;right:0;height:2px; background: linear-gradient(90deg, #10b981, #34d399); }
+
+    /* ── Supervisors ── */
+    .supervisors {
+      padding: 50px 0;
+      border-top: 1px solid var(--border);
+    }
+    .sup-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .sup-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      flex: 1;
+      min-width: 200px;
+    }
+    .sup-chip .role {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+    .sup-chip .name { font-size: 0.92rem; font-weight: 500; color: var(--text); }
+    .sup-chip .org  { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0 50px;
+      text-align: center;
+    }
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    footer span { color: var(--accent); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeUp 0.65s ease both;
+    }
+    .fade-up:nth-child(2) { animation-delay: 0.1s; }
+    .fade-up:nth-child(3) { animation-delay: 0.2s; }
+    .fade-up:nth-child(4) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="wrapper">
+      <span class="nav-logo">MSc Thesis</span>
+      <span class="nav-badge">TU Dresden · 2025</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header>
+    <div class="wrapper">
+      <div class="thesis-label fade-up">MSc Research</div>
+      <h1 class="fade-up">
+        Explainable Energy Scheduling in<br>
+        <em>Residential Home Energy</em><br>
+        Management Systems
+      </h1>
+      <div class="meta-row fade-up">
+        <span class="meta-pill"><strong>Author</strong> Debashis Baidya</span>
+        <span class="meta-pill"><strong>Program</strong> Computational Modeling &amp; Simulation</span>
+        <span class="meta-pill"><strong>ID</strong> 4908178</span>
+        <span class="meta-pill"><strong>Institute</strong> TU Dresden</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section class="about">
+    <div class="wrapper">
+      <div class="section-label">Overview</div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Background</h3>
+          <p>This thesis addresses the lack of interpretability in Deep Reinforcement Learning (DRL) for Home Energy Management Systems (HEMS) by positioning Explainable AI (XAI) as the central research focus, using MILP as an interpretable reference model.</p>
+        </div>
+        <div class="about-card">
+          <h3>Key Objectives</h3>
+          <ul>
+            <li>Investigate XAI methods for DRL-based scheduling</li>
+            <li>Compare DRL transparency vs. MILP interpretability</li>
+            <li>Analyze explanation stability under complexity</li>
+            <li>Reveal policy strengths &amp; limitations under uncertainty</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>Methodology</h3>
+          <p>Simulation-based HEMS with PV, battery &amp; EVs. MILP as deterministic benchmark; DRL as trained agent. Post-hoc XAI (SHAP / Integrated Gradients) applied and cross-evaluated.</p>
+        </div>
+        <div class="about-card">
+          <h3>Conducted by</h3>
+          <p>Deutsche Telekom Chair of Communication Networks at TU Dresden in collaboration with <strong>Kiwigrid GmbH</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents -->
+  <section class="documents">
+    <div class="wrapper">
+      <div class="section-label">Documents &amp; Resources</div>
+      <div class="docs-grid">
+
+        <!-- Card 1 -->
+        <a class="doc-card blue" href="YOUR_GOOGLE_DRIVE_LINK_1" target="_blank" rel="noopener">
+          <div class="doc-icon icon-blue">📄</div>
+          <div class="doc-type">Document · Google Drive</div>
+          <h3>Thesis Proposal</h3>
+          <p>Full research proposal outlining objectives, methodology, and expected outcomes for the MSc thesis.</p>
+          <span class="doc-cta">Open document →</span>
+        </a>
+
+        <!-- Card 2 -->
+        <a class="doc-card purple" href="YOUR_GOOGLE_DRIVE_LINK_2" target="_blank" rel="noopener">
+          <div class="doc-icon icon-purple">📝</div>
+          <div class="doc-type">Document · Google Drive</div>
+          <h3>Research Notes</h3>
+          <p>Ongoing notes, literature review summaries, and experimental findings compiled throughout the thesis.</p>
+          <span class="doc-cta">Open document →</span>
+        </a>
+
+        <!-- Card 3 -->
+        <a class="doc-card green" href="YOUR_GOOGLE_SLIDES_LINK" target="_blank" rel="noopener">
+          <div class="doc-icon icon-green">🎞️</div>
+          <div class="doc-type">Presentation · Google Slides</div>
+          <h3>Thesis Presentation</h3>
+          <p>Slide deck covering research background, methodology, results, and key explainability insights.</p>
+          <span class="doc-cta">Open slides →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Supervisors -->
+  <section class="supervisors">
+    <div class="wrapper">
+      <div class="section-label">Supervision</div>
+      <div class="sup-row">
+        <div class="sup-chip">
+          <div class="role">Author</div>
+          <div class="name">Debashis Baidya</div>
+          <div class="org">Computational Modeling &amp; Simulation, TU Dresden</div>
+        </div>
+        <div class="sup-chip">
+          <div class="role">Academic Supervisor</div>
+          <div class="name">M.Sc. Razan Habeeb</div>
+          <div class="org">TU Dresden</div>
+        </div>
+        <div class="sup-chip">
+          <div class="role">Industry Supervisor</div>
+          <div class="name">Dr.-Ing. Lars Högner</div>
+          <div class="org">Kiwigrid GmbH</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrapper">
+      <p>© 2025 <span>Debashis Baidya</span> · MSc Thesis · TU Dresden · Immatriculation <span>4908178</span></p>
+    </div>
+  </footer>
+
+</body>
+</html>
